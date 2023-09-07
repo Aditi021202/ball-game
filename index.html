@@ -26,7 +26,7 @@
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            background: yellow;
+            /* background: yellow; */
            
             
         }
@@ -88,11 +88,27 @@
         let numCircles=config[p.level].circles
         for(let i=0;i<numCircles;i++)
         {
-           let ball=document.createElement("div")
-           ball.classList.add("ball")
-           balls.push(ball) 
+           
+        //    let ball=document.createElement("div")
+        //    ball.classList.add("ball")
+           balls.push(getBall()) 
+           
         }
         return balls
+        
+    }
+
+    function getBall()
+    {
+        let ball=document.createElement("div")
+        ball.classList.add("ball")
+        return{
+            color:"yellow",
+            obj:ball,
+            toggle(){
+                this.obj.style.backgroundColor=this.color
+            }
+        };
     }
 
    
@@ -101,12 +117,15 @@
         running:false,
         start(){
             this.balls=getBalls(player,config)
-            this.balls.forEach(ball=>gameBox.appendChild(ball))
+            // this.balls.forEach(ball=>gameBox.appendChild(ball))
+            this.balls.forEach(ball=>{ball.toggle()
+            gameBox.appendChild(ball.obj)})
             this.running=true
         }
     }
     game.start()
-   
+    game.balls[1].color="red"
+    game.balls[1].toggle()
     };
 
    
