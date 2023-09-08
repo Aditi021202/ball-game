@@ -121,11 +121,35 @@
             this.balls.forEach(ball=>{ball.toggle()
             gameBox.appendChild(ball.obj)})
             this.running=true
+        //    this.update()
+        },
+        update(){
+                console.log("called")
+                const ball=getRandomBall(this.balls)
+                this.balls.forEach(b=>b.color="yellow")
+                ball.color="red"
+                this.balls.forEach(b=>b.toggle())
+            }
+    }
+
+    function getRandomBall(balls){
+        let i=Math.ceil(Math.random()*100)%balls.length
+        return balls[i]
+    }
+    gameBox.onclick=function(e){
+        let clickedBall=game.balls.filter(b=>b.obj==e.target)[0]
+      
+        if(clickedBall){
+            if(clickedBall.color=="red")
+                alert("Caught")
+            else
+                alert("Wrong")
         }
     }
     game.start()
-    game.balls[1].color="red"
-    game.balls[1].toggle()
+    setInterval(()=>game.update(),100)
+    // game.balls[1].color="red"
+    // game.balls[1].toggle()
     };
 
    
